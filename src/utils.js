@@ -30,7 +30,6 @@ function generateRandomOperator(level) {
     return OPERATORS[getRandomNumber(0, level)];
 }
 function evaluateExpression(inputs, operator) {
-    let result = 0;
     let fn;
     let add = (x,y) => x + y;
     let sub = (x,y) => x - y;

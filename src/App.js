@@ -1,21 +1,13 @@
-import React, { useDebugValue, useState, useRef } from "react";
-import logo from "./logo.svg";
+import React, { useRef, useState } from "react";
 import "./App.css";
-import Option from "./components/Option";
-import OptionsList from "./components/OptionsList";
-import Top from "./Top";
-import Center from "./Center";
 import Bottom from "./Bottom";
-import GameStart from "./components/GameStart";
+import Center from "./Center";
 import GameResult from "./components/GameResult";
+import GameStart from "./components/GameStart";
+import Top from "./Top";
 import {
-  getRandomOperator,
-  getRandomNumber,
-  addRandomNumber,
-  generateInputs,
-  generateRandomOperator,
-  evaluateExpression,
-  generateOptions,
+  evaluateExpression, generateInputs,
+  generateOptions, generateRandomOperator
 } from "./utils";
 
 function App() {
@@ -88,7 +80,7 @@ function App() {
     if ( currentInCorrectCount >= 3) {
       setInCorrectCount(currentInCorrectCount);
       endGame();
-    } else if (e.currentTarget.innerHTML == result) {
+    } else if (e.currentTarget.innerHTML === result) {
       setCorrectCount(correctCount + 1);
     } else {
       setInCorrectCount(currentInCorrectCount);
