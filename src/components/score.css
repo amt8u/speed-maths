@@ -1,0 +1,21 @@
+.score-wrapper {
+    width: 35%;
+    margin: 15px;
+    display: flex;
+    color: #778899;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.score {
+    flex-basis: 60%;
+    border: 1px solid #39973f;
+    border-radius: 59px;
+    padding: 10px;
+    color: #4f8237;
+    background: #edffee;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+

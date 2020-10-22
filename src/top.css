@@ -1,0 +1,7 @@
+.top-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    /* border-bottom: 1px  solid beige; */
+    justify-content: center;
+    align-items: center;
+}

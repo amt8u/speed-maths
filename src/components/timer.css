@@ -1,0 +1,24 @@
+.timer-wrapper {
+    margin: 15px;
+}
+
+.timer {
+    color: #778899;
+    /* background: #ffe5e5; */
+    font-size: 1.5em;
+    /* font-weight: bold; */
+    text-align: center;
+}
+
+.timer-value {
+    font-weight: 600;
+    font-size: 2.4rem;
+}
+
+.timer-critical {
+    color: #dd3900;
+}
+
+.timer-low {
+    color : #00ca31;
+}

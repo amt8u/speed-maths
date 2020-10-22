@@ -1,0 +1,13 @@
+.sound-wrapper {
+   font-size: 2rem;
+   color: #525252;
+   cursor: pointer;
+}
+
+.on::after {
+    content: "\1d160";
+}
+
+.off::after {
+    content: "\1d194";
+}

@@ -1,0 +1,30 @@
+.start-wrapper {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-header {
+    margin: auto;
+    font-size: 3rem;
+    text-align: center;
+    color: #e37912;
+    font-family: monospace;
+}
+
+.start-button {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 2rem;
+    padding: 25px;
+    /* width: 200px; */
+    margin: auto;
+    background: darkcyan;
+    color: white;
+    cursor: pointer;
+}
+
+.start-button:hover {
+    color: white;
+    background: #5a6773;
+}

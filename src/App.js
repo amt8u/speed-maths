@@ -1,24 +1,155 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useDebugValue, useState, useRef } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Option from "./components/Option";
+import OptionsList from "./components/OptionsList";
+import Top from "./Top";
+import Center from "./Center";
+import Bottom from "./Bottom";
+import GameStart from "./components/GameStart";
+import GameResult from "./components/GameResult";
+import {
+  getRandomOperator,
+  getRandomNumber,
+  addRandomNumber,
+  generateInputs,
+  generateRandomOperator,
+  evaluateExpression,
+  generateOptions,
+} from "./utils";
 
 function App() {
+  const INPUT_START = 1;
+  const INPUT_END = 20;
+  const INPUTS_COUNT = 2;
+  const OPTIONS_COUNT = 4;
+  const DIFFICULTY_LEVEL = 1;
+  const TIMER_DURATION = 30;
+
+  const [gameState, setGameState] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [inCorrectCount, setInCorrectCount] = useState(0);
+  const [inputs, setInputs] = useState([]);
+  const [operator, setOperator] = useState(null);
+  const [options, setOptions] = useState([]);
+  const [result, setResult] = useState(null);
+  const [sound, setSound] = useState(true);
+  const [remainingTime, setRemainingTime] = useState(TIMER_DURATION);
+  const remainingTimeRef = useRef(remainingTime);
+  const intervalRef = useRef();
+
+  function updateState(newState) {
+    remainingTimeRef.current = newState;
+    setRemainingTime(newState);
+  }
+
+  const loadQuestion = () => {
+    let currentOperator = generateRandomOperator(DIFFICULTY_LEVEL);
+    setOperator(currentOperator);
+    let currentInputs = generateInputs(INPUTS_COUNT, INPUT_START, INPUT_END);
+    setInputs(currentInputs);
+    let result = evaluateExpression(currentInputs, currentOperator);
+    setResult(result);
+    setOptions(generateOptions(OPTIONS_COUNT, result));
+  };
+
+  const endGame = () => {
+    clearInterval(intervalRef.current);
+    setGameState(2);
+  };
+
+  const initGame = () => {
+    // Set 60 seconds
+    updateState(TIMER_DURATION);
+    // main game timer
+    const gameTimerId = setInterval(() => {
+      if (remainingTimeRef.current <= 1) {
+        updateState(remainingTimeRef.current - 1);
+        endGame();
+        // clearInterval(intervalRef.current);
+      } else {
+        updateState(remainingTimeRef.current - 1);
+      }
+    }, 1000);
+    intervalRef.current = gameTimerId;
+    loadQuestion();
+  };
+
+  const onClickStart = () => {
+    setCorrectCount(0);
+    setInCorrectCount(0);
+    setGameState(1);
+    playClickSound();
+    initGame();
+  };
+
+  const onOptionClick = (e) => {
+    let currentInCorrectCount = inCorrectCount + 1;
+    if ( currentInCorrectCount >= 3) {
+      setInCorrectCount(currentInCorrectCount);
+      endGame();
+    } else if (e.currentTarget.innerHTML == result) {
+      setCorrectCount(correctCount + 1);
+    } else {
+      setInCorrectCount(currentInCorrectCount);
+    }
+    playClickSound();
+    loadQuestion();
+  };
+
+  const playClickSound = () => {
+    // play click sound
+    if (sound) {
+      new Audio("click.mp3").play();
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Running */}
+      {gameState === 1 && (
+        <React.Fragment>
+          <Top
+            score={correctCount}
+            inCorrectCount={inCorrectCount}
+            timer={remainingTime}
+            sound={sound}
+            setSound={setSound}
+          />
+          <Center inputs={[...inputs]} operator={operator} />
+          <Bottom options={[...options]} onClick={(e) => onOptionClick(e)} />
+        </React.Fragment>
+      )}
+      {/* Result */}
+      {gameState === 2 && (
+        <React.Fragment>
+          <Top
+            score={correctCount}
+            inCorrectCount={inCorrectCount}
+            timer={remainingTime}
+            sound={sound}
+            setSound={setSound}
+          />
+          <GameResult
+            score={correctCount}
+            timer={remainingTime}
+            onClick={() => onClickStart()}
+          ></GameResult>
+        </React.Fragment>
+      )}
+      {/* Start */}
+      {gameState === 0 && (
+        <React.Fragment>
+          <Top
+            score={correctCount}
+            inCorrectCount={inCorrectCount}
+            timer={remainingTime}
+            sound={sound}
+            setSound={setSound}
+          />
+          <GameStart onClick={() => onClickStart()}></GameStart>
+        </React.Fragment>
+      )}
     </div>
   );
 }

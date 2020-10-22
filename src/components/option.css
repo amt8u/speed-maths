@@ -1,0 +1,23 @@
+.option {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 20px;
+  color: blanchedalmond;
+  background: lightslategray;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (pointer: fine) {
+  .option:hover {
+    color: white;  
+    background: #5a6773;
+  }
+}
+
+.option-wrapper {
+  width:35%;
+  margin:15px;
+}

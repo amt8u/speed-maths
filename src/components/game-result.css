@@ -1,0 +1,39 @@
+.result-wrapper {
+    text-align: center;
+}
+
+.result-header {
+    color: tomato;
+    font-size: 3rem;
+    margin: 50px;
+    padding: 20px;
+}
+
+.result-score {
+    /* border: 1px solid #ddd; */
+    margin: 0 50px;
+    padding: 10px;
+    border-radius: 30px;
+    color: #69aa1c;
+    font-size: 5rem;
+}
+
+.play-again {
+    font-size: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 50px;
+    padding: 20px;
+    color: blanchedalmond;
+    background: lightslategray;
+    cursor: pointer;
+}
+
+.play-again:hover {
+    color: white;
+    background: #5a6773;
+}
+
+.subtitle {
+    font-size: 3rem;
+}
