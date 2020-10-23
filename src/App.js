@@ -80,7 +80,7 @@ function App() {
     if ( currentInCorrectCount >= 3) {
       setInCorrectCount(currentInCorrectCount);
       endGame();
-    } else if (e.currentTarget.innerHTML === result) {
+    } else if (Number(e.currentTarget.innerHTML) === result) {
       setCorrectCount(correctCount + 1);
     } else {
       setInCorrectCount(currentInCorrectCount);
