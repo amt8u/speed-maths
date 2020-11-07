@@ -1,5 +1,6 @@
 {
   "name": "speed-maths",
+  "homepage": "speed-maths",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
