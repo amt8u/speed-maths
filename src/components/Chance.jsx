@@ -5,7 +5,7 @@ function Chance(props) {
     return (
         <div className="timer-wrapper">
             <div className="timer">
-                Wrong : <span className="timer-value chance">{props.count} / 3</span>
+                Wrong : <span className="timer-value chance">{props.count} / {props.maxAllowed}</span>
             </div>
         </div>
     );

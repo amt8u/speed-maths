@@ -11,16 +11,40 @@ import {
 } from "./utils";
 
 function App() {
+  // input options range
   const INPUT_START = 1;
   const INPUT_END = 20;
-  const INPUTS_COUNT = 2;
-  const OPTIONS_COUNT = 4;
-  const DIFFICULTY_LEVEL = 1;
-  const TIMER_DURATION = 30;
 
+  // array of input values for expression
+  const INPUTS_COUNT = 3;
+
+  // number of options including the actual answer
+  const OPTIONS_COUNT = 4;
+
+  // See constants.js for available levels
+  const DIFFICULTY_LEVEL = 3;
+
+  // how long the total time for the game
+  const TIMER_DURATION = 240;
+
+  // Max allowed incorrect questions
+  const MAX_WRONG_ANSWERS = 3;
+
+  /* 
+  gameState
+    1 - running
+    2 - result
+    0 - start
+  
+  correctCount
+    saves the number of questions answered correctly
+  inCorrectCount
+    saves the number of questions answered incorrectly. We need this because we want to terminate the game when a limit is reached
+  */
   const [gameState, setGameState] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [inCorrectCount, setInCorrectCount] = useState(0);
+  // const [maxAllowed, setMaxAllowed] = useState(MAX_WRONG_ANSWERS);
   const [inputs, setInputs] = useState([]);
   const [operator, setOperator] = useState(null);
   const [options, setOptions] = useState([]);
@@ -35,6 +59,7 @@ function App() {
     setRemainingTime(newState);
   }
 
+  // On starting game or clicking on next button
   const loadQuestion = () => {
     let currentOperator = generateRandomOperator(DIFFICULTY_LEVEL);
     setOperator(currentOperator);
@@ -77,7 +102,7 @@ function App() {
 
   const onOptionClick = (e) => {
     let currentInCorrectCount = inCorrectCount + 1;
-    if ( currentInCorrectCount >= 3) {
+    if ( currentInCorrectCount >= MAX_WRONG_ANSWERS) {
       setInCorrectCount(currentInCorrectCount);
       endGame();
     } else if (Number(e.currentTarget.innerHTML) === result) {
@@ -104,6 +129,7 @@ function App() {
           <Top
             score={correctCount}
             inCorrectCount={inCorrectCount}
+            maxAllowed={MAX_WRONG_ANSWERS}
             timer={remainingTime}
             sound={sound}
             setSound={setSound}
@@ -118,6 +144,7 @@ function App() {
           <Top
             score={correctCount}
             inCorrectCount={inCorrectCount}
+            maxAllowed={MAX_WRONG_ANSWERS}
             timer={remainingTime}
             sound={sound}
             setSound={setSound}
@@ -135,6 +162,7 @@ function App() {
           <Top
             score={correctCount}
             inCorrectCount={inCorrectCount}
+            maxAllowed={MAX_WRONG_ANSWERS}
             timer={remainingTime}
             sound={sound}
             setSound={setSound}
